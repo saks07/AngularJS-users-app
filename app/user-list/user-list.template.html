@@ -5,26 +5,30 @@
     </h1>
     <loading-data ng-if="fetchingUsers" loading-name="'users'"></loading-data>
     <ul ng-if="!fetchingUsers && state.users.length > 0" class="reset-ul user-list">
-        <li ng-repeat="user in state.users | filter: searchQuery; track by user.username" class="card user-card">
+        <li ng-repeat="user in state.users | filter: searchQuery; track by user.username" class="card user-card" ng-class="{ 'selected': user.selected }">
             <long-press user="user" class="user-wrapper">
                 <div class="user-title">{{ user.username }}</div>
                 <div class="actions-container">
-                    <button class="btn" command="show-modal" commandfor="app-modal-user-detail" ng-click="showUserDetail(user)">details</button>
-                    <button class="btn btn-error" command="show-modal" commandfor="app-modal-delete-user" ng-click="deleteUserPrompt(user)">delete</button>
+                    <button class="btn" command="show-modal" commandfor="app-modal-user-detail" ng-click="showUserDetail(user, $index)">details</button>
+                    <button class="btn btn-error" command="show-modal" commandfor="app-modal-delete-user" ng-click="deleteUserPrompt(user, $index)">delete</button>
                 </div>
             </long-press>
         </li>
     </ul>
-    <no-data ng-if="!fetchingUsers && state.users.length === 0" no-name="'users'"></no-data>
+    <app-no-data ng-if="!fetchingUsers && state.users.length === 0" no-name="'users'"></app-no-data>
 
     <app-modal modal-id="'app-modal-user-detail'" on-close-modal="resetSelectedUser()">
-        <user-detail user="state.selectedUserData"></user-detail>
+        <modal-body>
+            <user-detail user="state.selectedUserData"></user-detail>
+        </modal-body>
     </app-modal>
     <app-modal modal-id="'app-modal-delete-user'" on-close-modal="resetDeleteUser()">
-        <user-delete-modal  modal-id="'app-modal-delete-user'" 
-                            user-data="state.deleteUserData" 
-                            on-accept-delete="deleteUser()"
-                            on-reject-delete="resetDeleteUser()">
-        </user-delete-modal>
+        <modal-body>
+            <user-delete-modal  modal-id="'app-modal-delete-user'" 
+                                user-data="state.deleteUserData" 
+                                on-accept-delete="deleteUser()"
+                                on-reject-delete="resetDeleteUser()">
+            </user-delete-modal>
+        </modal-body>
     </app-modal>
 </div>

@@ -8,26 +8,26 @@ angular
                 user: '='
             },
             link: function($scope, $element, $attrs) {
-                var treshold = 600;
-                var timeoutId = 0;
+                $scope.treshold = 600;
+                $scope.timeoutId = 0;
 
-                var onMouseDownCb = function(event) {
-                    timeoutId = $timeout(function() {
-                        var userName = scope.user ? scope.user.username : '';
+                $scope.onMouseDownCb = function(event) {
+                    $scope.timeoutId = $timeout(function() {
+                        var userName = $scope.user ? $scope.user.username : '';
                         console.log('Long press detected on user: ' + userName);
-                    }, treshold);
+                    }, $scope.treshold);
                 };
 
-                $element.on('mousedown', onMouseDownCb);
+                $element.on('mousedown', $scope.onMouseDownCb);
 
-                var onMouseUpCb = function(event) {
-                    $timeout.cancel(timeoutId);
+                $scope.onMouseUpCb = function(event) {
+                    $timeout.cancel($scope.timeoutId);
                 }
 
-                $element.on('mouseup', onMouseUpCb);
+                $element.on('mouseup', $scope.onMouseUpCb);
 
                 $scope.$on('$destroy', function() {
-                    $timeout.cancel(timeoutId);
+                    $timeout.cancel($scope.timeoutId);
                     $element.off('mousedown');
                     $element.off('mouseup');
                 });

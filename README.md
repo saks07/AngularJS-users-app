@@ -49,8 +49,9 @@ files by a web server.*
 app/                     --> all the source code of the app (along with unit tests)
   lib/...                --> 3rd party JS/CSS libraries, including AngularJS and jQuery (copied over from `node_modules/`)
   about/...              --> files for the `about` module, including JS source code, HTML templates
+  app-navigation/...     --> files for the `appNavigation` module, used as the main navigation of the application, including JS source code, HTML templates
   user-list/...          --> files for the `userList` module, including JS source code, HTML templates
-    components           --> files for the `userList` module, components used in the app modal component as a slot 
+    components           --> files for the `userList` module, components used in the app modal component as a ng-transclude slot 
   shared                 --> Components, directives, services and other modules used across the application
     components           --> Components, used across the application
     directives           --> Directives, used across the application

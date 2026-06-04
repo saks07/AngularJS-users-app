@@ -23,7 +23,11 @@ function UserListController($scope, UserService, MessagingService) {
           throw new Error('Could not fetch users!');
         }
 
-        $scope.setUserData(response.data);
+        // Assign selected property to user object
+        var addSelectedProp = response.data.map(function(user) {
+          return Object.assign(user, { selected:false });
+        });
+        $scope.setUserData(addSelectedProp);
         messagingService.setMessage('success', 'Users fetched successfully!');
       })
       .catch(function(error) {
@@ -53,12 +57,30 @@ function UserListController($scope, UserService, MessagingService) {
   }
 
   // Methods
-  $scope.showUserDetail = function(user) {
+  $scope.highlightSelectedUser = function(index) {
+    var cloneUsers = $scope.state.users.slice();
+    cloneUsers[index].selected = true;
+
+    $scope.setUserData(cloneUsers); 
+  }
+
+  $scope.resetUsersSelected = function() {
+    var cloneUsers = $scope.state.users.slice();
+    var resetUsersSelected = cloneUsers.map(function(user) {
+      return Object.assign(user, { selected: false })
+    });
+
+    $scope.setUserData(resetUsersSelected); 
+  }
+
+  $scope.showUserDetail = function(user, index) {
     $scope.setSelectedUserData(user);
+    $scope.highlightSelectedUser(index);
   };
 
-  $scope.deleteUserPrompt = function(user) {
+  $scope.deleteUserPrompt = function(user, index) {
     $scope.setDeleteUserData(user);
+    $scope.highlightSelectedUser(index);
   }
 
   $scope.deleteUser = function() {
@@ -75,6 +97,7 @@ function UserListController($scope, UserService, MessagingService) {
 
         messagingService.setMessage('success', 'User deleted successfully!');
         $scope.removeUserFromList(userId);
+        $scope.resetUsersSelected();
         $scope.setDeleteUserData(null);
       })
       .catch(function(error) {
@@ -84,7 +107,7 @@ function UserListController($scope, UserService, MessagingService) {
   }
 
   $scope.removeUserFromList = function(userId) {
-    var cloneUsers = [ ...$scope.state.users ];
+    var cloneUsers = $scope.state.users.slice();
     var deleteUser = cloneUsers.filter(function(user) {
       return user.id !== userId;
     });
@@ -94,10 +117,12 @@ function UserListController($scope, UserService, MessagingService) {
 
   $scope.resetSelectedUser = function() {
     $scope.setSelectedUserData(null);
+    $scope.resetUsersSelected();
   }
 
   $scope.resetDeleteUser = function() {
     $scope.setDeleteUserData(null);
+    $scope.resetUsersSelected();
   }
 }
 

@@ -10,7 +10,6 @@ function HttpErrorInterceptor($q) {
       console.error('Response error endpoint: ' + url.pathname);
       console.error('Response error status: ' + errorResponse.status);
 
-      // return Promise.reject(errorResponse);
       return( $q.reject( errorResponse ) );
     }
   };

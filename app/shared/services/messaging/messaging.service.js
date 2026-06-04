@@ -2,21 +2,27 @@
 
 angular
     .module('service.messaging')
-    .factory('MessagingService', ['$rootScope', function($rootScope) {
-        var state = {
+    .factory('MessagingService', function() {
+        var self = this;
+
+        self.state = {
             type: null,
             message: null
         };
 
         var setMessage = function(type, message) {
-            state.type = type;
-            state.message = message;
-            $rootScope.$broadcast('message:updated', state);
+            self.state.type = type;
+            self.state.message = message;
         }
 
         var getMessage = function() {
-            return state;
+            return self.state;
         }
 
-        return { setMessage, getMessage, state }
-    }]);
+        var resetMessage = function() {
+            self.state.type = null;
+            self.state.message = null;
+        }
+
+        return { setMessage, getMessage, resetMessage }
+    });
