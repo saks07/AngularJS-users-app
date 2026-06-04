@@ -1,0 +1,6 @@
+<dialog id="{{ $ctrl.modalId }}" class="app-modal">
+    <div class="app-modal-header">
+        <button class="btn btn-transparent" commandfor="{{ $ctrl.modalId }}" command="close" ng-click="closeModal()">Close</button>
+    </div>
+    <ng-transclude></ng-transclude>
+</dialog>

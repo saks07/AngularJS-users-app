@@ -1,0 +1,18 @@
+<div id="userDetailComponent" class="user-details-comnponent">
+    <h3>User {{ $ctrl.user.username }} details:</h3>
+    <div class="user-detail-row">
+        <span class="user-label">Name</span>: <span class="user-value">{{ $ctrl.user.name }}</span>
+    </div>
+    <div class="user-detail-row">
+        <span class="user-label">Email</span>: <span class="user-value">{{ $ctrl.user.email }}</span>
+    </div>
+    <div class="user-detail-row">
+        <span class="user-label">Address</span>: <span class="user-value">{{ $ctrl.user.address | userAddress }}</span>
+    </div>
+    <div class="user-detail-row">
+        <span class="user-label">Phone nr.</span>: <span class="user-value">{{ $ctrl.user.phone }}</span>
+    </div>
+    <div class="user-detail-row">
+        <span class="user-label">Website</span>: <span class="user-value">{{ $ctrl.user.website }}</span>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+<div id="usersListComponent" class="users-list-comnponent">
+    <h1 class="page-title users-page-title">
+        Users
+        <div class="search-container">search: <input type="text" ng-model="searchQuery" /></div>
+    </h1>
+    <loading-data ng-if="fetchingUsers" loading-name="'users'"></loading-data>
+    <ul ng-if="!fetchingUsers && state.users.length > 0" class="reset-ul user-list">
+        <li ng-repeat="user in state.users | filter: searchQuery; track by user.username" class="card user-card">
+            <long-press user="user" class="user-wrapper">
+                <div class="user-title">{{ user.username }}</div>
+                <div class="actions-container">
+                    <button class="btn" command="show-modal" commandfor="app-modal-user-detail" ng-click="showUserDetail(user)">details</button>
+                    <button class="btn btn-error" command="show-modal" commandfor="app-modal-delete-user" ng-click="deleteUserPrompt(user)">delete</button>
+                </div>
+            </long-press>
+        </li>
+    </ul>
+    <no-data ng-if="!fetchingUsers && state.users.length === 0" no-name="'users'"></no-data>
+
+    <app-modal modal-id="'app-modal-user-detail'" on-close-modal="resetSelectedUser()">
+        <user-detail user="state.selectedUserData"></user-detail>
+    </app-modal>
+    <app-modal modal-id="'app-modal-delete-user'" on-close-modal="resetDeleteUser()">
+        <user-delete-modal  modal-id="'app-modal-delete-user'" 
+                            user-data="state.deleteUserData" 
+                            on-accept-delete="deleteUser()"
+                            on-reject-delete="resetDeleteUser()">
+        </user-delete-modal>
+    </app-modal>
+</div>

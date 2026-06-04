@@ -1,0 +1,7 @@
+<div id="usersDeleteModalComponent" class="users-delete-modal-component">
+    <p>Are you sure you want to delete user: {{ $ctrl.userData.username || '' }}</p>
+    <div class="actions-container">
+        <button class="btn" commandfor="{{ $ctrl.modalId }}" command="close" ng-click="acceptDelete()">Yes</button>
+        <button class="btn" commandfor="{{ $ctrl.modalId }}" command="close" ng-click="rejectDelete($event)">No</button>
+    </div>
+</div>

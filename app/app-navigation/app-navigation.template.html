@@ -1,0 +1,7 @@
+<nav id="appNavigationComponent">
+    <ul>
+        <li ng-repeat="route in routes; track by route.id">
+            <a ng-href="#!/{{ route.routeHref }}">{{ route.routeText }}</a>
+        </li>
+    </ul>
+</nav>

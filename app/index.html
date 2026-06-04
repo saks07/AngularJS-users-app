@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en" ng-app="usersApp">
+  <head>
+    <meta charset="utf-8">
+    <title>Users App</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="//fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="app.css" />
+
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular-route/angular-route.js"></script>
+
+    <script src="app.module.js"></script>
+    <script src="app.router.js"></script>
+    
+    <script src="shared/httpClient/http-client.module.js"></script>
+    <script src="shared/interceptors/http-error.interceptor.js"></script>
+
+    <script src="app-navigation/app-navigation.module.js"></script>
+    <script src="app-navigation/app-navigation.component.js"></script>
+
+    <script src="app-modal/app-modal.module.js"></script>
+    <script src="app-modal/app-modal.component.js"></script>
+
+    <script src="user-list/user-list.module.js"></script>
+    <script src="user-list/user-list.component.js"></script>
+    <script src="user-list/components/user-delete-modal/user-delete-modal.module.js"></script>
+    <script src="user-list/components/user-delete-modal/user-delete-modal.component.js"></script>
+    <script src="user-list/components/user-detail/user-detail.module.js"></script>
+    <script src="user-list/components/user-detail/user-detail.component.js"></script>
+
+    <script src="about/about.module.js"></script>
+    <script src="about/about.component.js"></script>
+
+    <script src="shared/services/services.module.js"></script>
+    <script src="shared/services/user/user.module.js"></script>
+    <script src="shared/services/user/user.service.js"></script>
+    <script src="shared/services/messaging/messaging.module.js"></script>
+    <script src="shared/services/messaging/messaging.service.js"></script>
+
+    <script src="shared/directives/directives.module.js"></script>
+    <script src="shared/directives/long-press/long-press.directive.js"></script>
+
+    <script src="shared/components/loading-data/loading-data.module.js"></script>
+    <script src="shared/components/loading-data/loading-data.component.js"></script>
+    <script src="shared/components/no-data/no-data.module.js"></script>
+    <script src="shared/components/no-data/no-data.component.js"></script>
+    <script src="shared/components/app-messaging/app-messaging.module.js"></script>
+    <script src="shared/components/app-messaging/app-messaging.component.js"></script>
+  </head>
+  <body>
+
+    <app-navigation></app-navigation>
+    
+    <div class="view-container">
+      <div ng-view class="view-frame"></div>
+    </div>
+
+    <app-messaging></app-messaging>
+
+  </body>
+</html>
