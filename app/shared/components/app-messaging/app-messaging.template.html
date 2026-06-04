@@ -1,6 +1,6 @@
 <div id="appMessagingComponent" class="app-messaging-component">
-    <div ng-if="state.showMessage" class="app-message-wrapper" ng-class="{ 'app-message-error': state.messageType === 'error' }">
-        {{ state.messageText }}
+    <div ng-if="getShowMessage()" class="app-message-wrapper" ng-class="{ 'app-message-error': getMessageType() === 'error' }">
+        {{ getMessageText() }}
         <button class="btn btn-secondary" ng-click="closeMessage($event)">close</button>
     </div>
 </div>

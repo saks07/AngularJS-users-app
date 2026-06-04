@@ -1,11 +1,27 @@
 'use strict';
 
-function AppMessagingController($scope, $timeout) {
-  $scope.timeoutId = 0;
+function AppMessagingController($scope, $timeout, MessagingService) {
+  $scope.messagingService = MessagingService;
+
   $scope.state = {
     showMessage: false,
-    messageType: null,
-    messageText: null
+    timeoutId: 0
+  }
+
+  $scope.messageState = $scope.messagingService.getMessage();
+
+  // Getters
+  $scope.getMessageType = function() {
+    return $scope.messageState.type;
+  }
+
+  $scope.getMessageText = function() {
+    return $scope.messageState.message;
+  }
+
+  $scope.getShowMessage = function() {
+    $scope.setShowMessage($scope.messageState.type !== null && $scope.messageState.message !== null);  
+    return $scope.state.showMessage;
   }
 
   // Setters
@@ -13,49 +29,38 @@ function AppMessagingController($scope, $timeout) {
     $scope.state.showMessage = value;
   }
 
-  $scope.setMessageType = function(value) {
-    $scope.state.messageType = value;
+  $scope.setTimeout = function(value) {
+    $scope.state.timeoutId = $timeout(function() {
+        $scope.setShowMessage(false);
+        $scope.messagingService.resetMessage();
+    }, 2000);
   }
 
-  $scope.setMessageText = function(value) {
-    $scope.state.messageText = value;
-  }
-
+  // Methods
   $scope.closeMessage = function(event) {
     event.stopImmediatePropagation();
 
     $scope.setShowMessage(false);
-    $scope.setMessageType(null);
-    $scope.setMessageText(null);
 
     $timeout.cancel($scope.timeoutId);
+    $scope.messagingService.resetMessage();
   }
 
-  $scope.$on('message:updated', function(event, data) {
-    if (data.type && data.message && !$scope.state.showMessage) {
-      $scope.setMessageType(data.type);
-      $scope.setMessageText(data.message);
-      $scope.setShowMessage(true);
-
-      $scope.timeoutId = $timeout(function() {
-        $scope.setShowMessage(false);
-      }, 1500);
-
+  // Watchers
+  $scope.$watch('state.showMessage', function(newVal, oldVal) {
+    if (newVal) {
+      $scope.setTimeout();
       return;
     }
 
-    $scope.setMessageType(null);
-    $scope.setMessageText(null);
     $scope.setShowMessage(false);
-
-    $timeout.cancel($scope.timeoutId);
+    $timeout.cancel($scope.state.timeoutId);
   });
-
 }
 
 angular
   .module('appMessaging')
   .component('appMessaging', {
     templateUrl: 'shared/components/app-messaging/app-messaging.template.html',
-    controller: ['$scope', '$timeout', AppMessagingController]
+    controller: ['$scope', '$timeout', 'MessagingService', AppMessagingController]
   });

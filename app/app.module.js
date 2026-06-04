@@ -13,7 +13,7 @@ angular
     'appNavigation',
     'appModal',
     'userDeleteModal',
-    'noData',
-    'loadingData',
+    'appNoData',
+    'appLoadingData',
     'appMessaging'
   ]);

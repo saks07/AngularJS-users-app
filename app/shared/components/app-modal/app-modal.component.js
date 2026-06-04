@@ -11,8 +11,10 @@ function AppModalController($scope) {
 angular.
   module('appModal', [])
   .component('appModal', {
-    templateUrl: 'app-modal/app-modal.template.html',
-    transclude: true,
+    templateUrl: 'shared/components/app-modal/app-modal.template.html',
+    transclude: {
+      modalBody: 'modalBody'
+    },
     bindings: {
       modalId: '<',
       onCloseModal: '&'

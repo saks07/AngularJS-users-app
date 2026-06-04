@@ -1,4 +1,4 @@
 'use strict';
 
 // Define the `phoneList` module
-angular.module('noData', []);
+angular.module('appNoData', []);
