@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-    .module('httpClient', [])
+    .module('service.httpClient')
     .factory('HttpClientService', ['$http', function($http) {
         var self = this;
 

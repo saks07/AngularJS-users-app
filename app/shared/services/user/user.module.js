@@ -1,3 +1,3 @@
 'use strict'
 
-angular.module('service.user', ['httpClient']);
+angular.module('service.user', ['service.httpClient']);
